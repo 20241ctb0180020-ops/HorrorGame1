@@ -1,9 +1,16 @@
 using UnityEngine;
+using System.Collections;
 
 public class Door : MonoBehaviour
 {
     // Referência ao segundo objeto (adicione no Inspector do Unity)
     public Transform objetoAlvo;
+    private AudioSource porta;
+    public float tempo;
+    void Start()
+    {
+        porta = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -14,7 +21,16 @@ public class Door : MonoBehaviour
 
             // Exibe a distância no console
             Debug.Log("A distância é: " + distancia);
-            if ()
+            if (distancia < 3)
+            {
+                porta.enabled = true;
+                StartCoroutine(LigarSom());
+            }
         }
+    }
+    private IEnumerator LigarSom()
+    {
+        yield return new WaitForSeconds(tempo);
+        porta.enabled = false;
     }
 }
