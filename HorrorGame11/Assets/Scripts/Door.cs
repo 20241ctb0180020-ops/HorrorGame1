@@ -7,8 +7,10 @@ public class Door : MonoBehaviour
     public Transform objetoAlvo;
     private AudioSource porta;
     public float tempo;
+    private Animator animator;
     void Start()
     {
+        animator = GetComponent<Animator>();
         porta = GetComponent<AudioSource>();
     }
 
@@ -24,6 +26,7 @@ public class Door : MonoBehaviour
             if (distancia < 3)
             {
                 porta.enabled = true;
+                animator.Play("Object004");
                 StartCoroutine(LigarSom());
             }
         }
