@@ -8,6 +8,7 @@ public class Door : MonoBehaviour
     private AudioSource porta;
     public float tempo;
     private Animator animator;
+    private int number = 0;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -20,14 +21,17 @@ public class Door : MonoBehaviour
         {
             // Calcula a distância entre este objeto e o objetoAlvo
             float distancia = Vector3.Distance(transform.position, objetoAlvo.position);
+            animator.SetFloat("Distance", distancia);
 
             // Exibe a distância no console
-            Debug.Log("A distância é: " + distancia);
-            if (distancia < 3)
+            // Debug.Log("A distância é: " + distancia);
+            if (distancia < 2.5)
             {
+                if(number<1)
+                {
                 porta.enabled = true;
-                animator.Play("Object004");
                 StartCoroutine(LigarSom());
+                }
             }
         }
     }
@@ -35,5 +39,6 @@ public class Door : MonoBehaviour
     {
         yield return new WaitForSeconds(tempo);
         porta.enabled = false;
+        number += 1;
     }
 }
